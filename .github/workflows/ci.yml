@@ -47,8 +47,8 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
       - name: Create deploy message
-        id: deploy-message
-        run: echo "::set-output name=message::$(cat deploy.txt)"
+        run: |
+          echo "SITES_DEPLOYED=$(cat deploy.txt)" >> $GITHUB_ENV
 
       - name: Comment PR
         uses: actions/github-script@v3
@@ -59,5 +59,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '🚀 Netlify deployed \n\n ${{ steps.deploy-message.outputs.message }}'
+              body: '🚀 Netlify deployed \n\n ${{ env.SITES_DEPLOYED }}'
             })
