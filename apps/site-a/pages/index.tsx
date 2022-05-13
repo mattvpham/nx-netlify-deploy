@@ -1,4 +1,5 @@
 import styles from './index.module.css';
+import { Shared } from '@nx-netlify-deploy/shared';
 
 export function Index() {
   /*
@@ -13,7 +14,8 @@ export function Index() {
           <div id="welcome">
             <h1>
               <span> Hello there, </span>
-              Welcome site-a! 👋
+              Welcome site-a! 12:58am 👋
+              <Shared />
             </h1>
           </div>
 
