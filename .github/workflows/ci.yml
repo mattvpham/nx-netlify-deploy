@@ -13,13 +13,14 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
       - uses: nrwl/nx-set-shas@v2
 
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
           cache: 'yarn'
-          
+
       - run: yarn install --frozen-lockfile
 
       - run: npx nx workspace-lint
@@ -27,7 +28,7 @@ jobs:
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
       - run: npx nx affected --target=build --parallel=3
       
-      - run: npx nx affected --target=deploy
+      - run: npx nx affected --target=deploy --parallel=1
         env:
           SITE_A_SITE_ID: ${{ secrets.SITE_A_SITE_ID }}
           SITE_B_SITE_ID: ${{ secrets.SITE_B_SITE_ID }}
