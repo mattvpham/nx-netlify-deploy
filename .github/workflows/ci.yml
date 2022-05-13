@@ -46,4 +46,4 @@ jobs:
           SITE_B_SITE_ID: ${{ secrets.SITE_B_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
-      - run: echo ${{ steps.deploy.outputs.LOG }}
+      - run: echo ${{ steps.deploy.outputs.LOG }} | grep --ignore-case "website url"
