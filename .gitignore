@@ -5,6 +5,11 @@
 /tmp
 /out-tsc
 
+# Netlify
+/.netlify
+# Top-level netlify.toml will be replaced during deploy
+/netlify.toml
+
 # dependencies
 node_modules
 
