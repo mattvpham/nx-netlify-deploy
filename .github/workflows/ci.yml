@@ -35,8 +35,14 @@ jobs:
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
       - run: npx nx affected --target=build --parallel=3
       
-      - run: npx nx affected --target=deploy --parallel=1
+      - name: Deploy
+        id: deploy
+        run: |
+          npx nx affected --target=deploy --parallel=1
+          echo "::set-output name=SITES::$(cat netlify-deploy.txt | grep --ignore-case \"website url\")"
         env:
           SITE_A_SITE_ID: ${{ secrets.SITE_A_SITE_ID }}
           SITE_B_SITE_ID: ${{ secrets.SITE_B_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+      - run: echo ${{ steps.deploy.outputs.SITES }}
