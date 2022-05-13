@@ -35,15 +35,19 @@ jobs:
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
       - run: npx nx affected --target=build --parallel=3
       
+      - name: Get branch name
+        run: >
+          echo "BRANCH_NAME=$(echo ${{ github.head_ref }}
+          | awk '{gsub(/[\/_]/, "-", $0); print}' | cut -c -31)" >> $GITHUB_ENV
+
       - name: Deploy
         id: deploy
         run: |
-          echo "::set-output name=LOG::$(
-            npx nx affected --target=deploy --parallel=1
-          )"
+          npx nx affected --target=deploy --parallel=1
         env:
           SITE_A_SITE_ID: ${{ secrets.SITE_A_SITE_ID }}
           SITE_B_SITE_ID: ${{ secrets.SITE_B_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
-      - run: echo ${{ steps.deploy.outputs.LOG }} | grep --ignore-case "website url"
+      - run: cat deploy.txt
+      

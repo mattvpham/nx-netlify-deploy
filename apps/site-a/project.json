@@ -65,6 +65,9 @@
           },
           {
             "command": "NETLIFY_SITE_ID=$SITE_A_SITE_ID netlify deploy --build --prod"
+          },
+          {
+            "command": "echo site-a >> deploy.txt"
           }
         ],
         "parallel": false
