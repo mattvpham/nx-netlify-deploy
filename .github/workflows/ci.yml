@@ -59,7 +59,7 @@ jobs:
           echo "::set-output name=sites::$sites"
 
       - name: Comment PR
-        uses: actions/github-script@v3
+        uses: actions/github-script@v6
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
