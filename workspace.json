@@ -3,6 +3,8 @@
   "version": 2,
   "projects": {
     "site-a": "apps/site-a",
-    "site-a-e2e": "apps/site-a-e2e"
+    "site-a-e2e": "apps/site-a-e2e",
+    "site-b": "apps/site-b",
+    "site-b-e2e": "apps/site-b-e2e"
   }
 }
