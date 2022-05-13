@@ -54,6 +54,21 @@
       "options": {
         "lintFilePatterns": ["apps/site-a/**/*.{ts,tsx,js,jsx}"]
       }
+    },
+
+    "deploy": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "cp apps/site-a/netlify.toml ./netlify.toml"
+          },
+          {
+            "command": "NETLIFY_SITE_ID=$SITE_A_SITE_ID netlify deploy --build --alias=$BRANCH_NAME --message=\"$BRANCH_NAME\" --auth=$NETLIFY_SITE_ID"
+          }
+        ],
+        "parallel": false
+      }
     }
   },
   "tags": []

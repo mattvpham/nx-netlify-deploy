@@ -2,6 +2,20 @@
 
 # NxNetlifyDeploy
 
+## Netlify setup
+
+1. Create a Netlify personal access token through the Netlify UI (User settings -> Applications -> New access token)
+1. Create a Github secret named NETLIFY_AUTH_TOKEN
+1. Create the first Netlify site through the Netlify UI (or CLI)
+1. Connect it to this repo
+1. Turn off builds in the Netlify UI
+1. Create a Github secret named SITE_A_SITE_ID (from Netlify Site overview -> General -> Site details -> Site information -> Site ID)
+1. Create the second Netlify site
+1. Connect it to this repo
+1. Turn off builds for the second site
+1. Create a Github secret named SITE_B_SITE_ID
+
+
 This project was generated using [Nx](https://nx.dev).
 
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
