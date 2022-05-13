@@ -39,7 +39,7 @@ jobs:
         id: deploy
         run: |
           npx nx affected --target=deploy --parallel=1
-          echo "::set-output name=SITES::$(cat netlify-deploy.txt | grep --ignore-case \"website url\")"
+          echo "::set-output name=SITES::$(cat netlify-deploy.txt | grep --ignore-case 'website url')"
         env:
           SITE_A_SITE_ID: ${{ secrets.SITE_A_SITE_ID }}
           SITE_B_SITE_ID: ${{ secrets.SITE_B_SITE_ID }}
