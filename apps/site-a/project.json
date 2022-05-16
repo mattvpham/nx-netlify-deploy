@@ -57,20 +57,21 @@
     },
 
     "deploy": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "./tools/executors/deploy:deploy-netlify",
       "options": {
-        "commands": [
-          {
-            "command": "cp apps/site-a/netlify.toml ./netlify.toml"
-          },
-          {
-            "command": "NETLIFY_SITE_ID=$SITE_A_SITE_ID netlify deploy --build --prod"
-          },
-          {
-            "command": "echo site-a >> deploy.txt"
-          }
-        ],
-        "parallel": false
+        "netlifySiteIdEnvVarName": "SITE_A_SITE_ID",
+        "projectDirectory": "apps/site-a"
+      },
+      "configurations": {
+        "development": {
+          "configurationName": "development"
+        },
+        "staging": {
+          "configurationName": "staging"
+        },
+        "production": {
+          "configurationName": "production"
+        }
       }
     }
   },

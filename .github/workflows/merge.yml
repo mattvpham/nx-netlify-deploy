@@ -1,6 +1,6 @@
-name: deploy-branch
+name: deploy-staging
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -32,14 +32,9 @@ jobs:
       - run: npx nx workspace-lint
       - run: npx nx affected --target=lint --parallel=3
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
-      
-      - name: Get branch name
-        run: >
-          echo "BRANCH_NAME=$(echo ${{ github.head_ref }}
-          | awk '{gsub(/[\/_]/, "-", $0); print}' | cut -c -31)" >> $GITHUB_ENV
 
       # The deploy steps in each project will append their names to deploy.txt
-      - run: npx nx affected --target=deploy --parallel=1 --alias=${{ env.BRANCH_NAME }} --configuration=development
+      - run: npx nx affected --target=deploy --parallel=1 --alias=staging --configuration=staging
         env:
           SITE_A_SITE_ID: ${{ secrets.SITE_A_SITE_ID }}
           SITE_B_SITE_ID: ${{ secrets.SITE_B_SITE_ID }}
