@@ -135,7 +135,10 @@ function deployNetlifyExecutor(options, context) {
                     }
                     console.info('Writing to deploy.txt...');
                     console.info(deployedTo);
-                    (0, fs_1.writeFileSync)('./deploy.txt', deployedTo, { encoding: 'utf-8', flag: 'a' });
+                    (0, fs_1.writeFileSync)('./deploy.txt', deployedTo + '\n', {
+                        encoding: 'utf-8',
+                        flag: 'a'
+                    });
                     return [2 /*return*/, { success: true }];
             }
         });

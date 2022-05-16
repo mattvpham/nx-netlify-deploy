@@ -34,6 +34,9 @@ jobs:
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
 
       # The deploy steps in each project will append their names to deploy.txt
+      - name: Create empty deploy.txt
+        run: echo -n "" > deploy.txt
+
       - run: npx nx affected --target=deploy --parallel=1 --alias=staging --configuration=staging
         env:
           SITE_A_SITE_ID: ${{ secrets.SITE_A_SITE_ID }}
