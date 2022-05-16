@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "deploy-netlify": {
+      "implementation": "./deploy-netlify",
+      "schema": "./schema.json",
+      "description": "Deploys to Netlify"
+    }
+  }
+}
