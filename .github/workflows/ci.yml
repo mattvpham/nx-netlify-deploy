@@ -37,8 +37,11 @@ jobs:
         run: >
           echo "BRANCH_NAME=$(echo ${{ github.head_ref }}
           | awk '{gsub(/[\/_]/, "-", $0); print}' | cut -c -31)" >> $GITHUB_ENV
-
+        
       # The deploy steps in each project will append their names to deploy.txt
+      - name: Create empty deploy.txt
+        run: echo -n "" > deploy.txt
+
       - run: npx nx affected --target=deploy --parallel=1 --alias=${{ env.BRANCH_NAME }} --configuration=development
         env:
           SITE_A_SITE_ID: ${{ secrets.SITE_A_SITE_ID }}
