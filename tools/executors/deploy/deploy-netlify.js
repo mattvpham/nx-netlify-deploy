@@ -50,7 +50,7 @@ var fs_1 = require("fs");
 var NETLIFY_PROGRAM = 'netlify';
 function spawnNetlify(netlifySiteIdEnvVarName, configurationName, alias) {
     return __awaiter(this, void 0, void 0, function () {
-        var netlifySiteId, netlifyOptions, child, output, error, exitCode, lines, deployedTo, _i, lines_1, line;
+        var netlifySiteId, netlifyOptions, child, output, exitCode, deployedTo, lines, _i, lines_1, line;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -81,27 +81,24 @@ function spawnNetlify(netlifySiteIdEnvVarName, configurationName, alias) {
                         default:
                             throw new Error("Unknown configuration! ".concat(configurationName));
                     }
-                    console.info("Options: ".concat(JSON.stringify(netlifyOptions, null, 2)));
                     child = (0, child_process_1.spawn)('npx', __spreadArray([NETLIFY_PROGRAM], netlifyOptions, true));
                     output = '';
                     child.stdout.on('data', function (outChunk) {
-                        var outStr = outChunk.toString();
-                        process.stdout.write(outStr);
-                        output += outStr;
+                        var outChunkStr = outChunk.toString();
+                        process.stdout.write(outChunkStr);
+                        output += outChunkStr;
                     });
-                    error = '';
                     child.stderr.on('data', function (errChunk) {
                         var errChunkStr = errChunk.toString();
                         process.stderr.write(errChunkStr);
-                        error += errChunkStr;
                     });
                     return [4 /*yield*/, new Promise(function (resolve, reject) {
                             child.on('close', resolve);
                         })];
                 case 1:
                     exitCode = _a.sent();
-                    lines = output.split('\n');
                     deployedTo = '';
+                    lines = output.split('\n');
                     for (_i = 0, lines_1 = lines; _i < lines_1.length; _i++) {
                         line = lines_1[_i];
                         if (line.includes('Website URL:') || line.includes('Website Draft URL:')) {
@@ -114,9 +111,6 @@ function spawnNetlify(netlifySiteIdEnvVarName, configurationName, alias) {
             }
         });
     });
-}
-function getDeployedSite(siteTemplate, alias) {
-    return siteTemplate.replace('{alias}', alias);
 }
 function deployNetlifyExecutor(options, context) {
     return __awaiter(this, void 0, void 0, function () {

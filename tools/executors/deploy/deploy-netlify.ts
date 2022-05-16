@@ -39,30 +39,28 @@ async function spawnNetlify(
     default:
       throw new Error(`Unknown configuration! ${configurationName}`);
   }
-  console.info(`Options: ${JSON.stringify(netlifyOptions, null, 2)}`);
 
   const child = spawn('npx', [NETLIFY_PROGRAM, ...netlifyOptions]);
 
   let output = '';
   child.stdout.on('data', (outChunk) => {
-    const outStr: string = outChunk.toString();
-    process.stdout.write(outStr);
-    output += outStr;
+    const outChunkStr: string = outChunk.toString();
+    process.stdout.write(outChunkStr);
+    output += outChunkStr;
   });
 
-  let error = '';
   child.stderr.on('data', (errChunk) => {
     const errChunkStr = errChunk.toString();
     process.stderr.write(errChunkStr);
-    error += errChunkStr;
   });
 
   const exitCode = await new Promise((resolve, reject) => {
     child.on('close', resolve);
   });
 
-  const lines = output.split('\n');
+  // Look for deployed site url
   let deployedTo = '';
+  const lines = output.split('\n');
   for (const line of lines) {
     if (line.includes('Website URL:') || line.includes('Website Draft URL:')) {
       // The following regex comes from
@@ -75,10 +73,6 @@ async function spawnNetlify(
   }
 
   return { exitCode, deployedTo };
-}
-
-function getDeployedSite(siteTemplate: string, alias: string) {
-  return siteTemplate.replace('{alias}', alias);
 }
 
 export interface DeployNetlifyExecutorOptions {
