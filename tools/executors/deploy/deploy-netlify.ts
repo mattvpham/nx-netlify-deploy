@@ -111,7 +111,10 @@ export default async function deployNetlifyExecutor(
   console.info('Writing to deploy.txt...');
   console.info(deployedTo);
 
-  writeFileSync('./deploy.txt', deployedTo, { encoding: 'utf-8', flag: 'a' });
+  writeFileSync('./deploy.txt', deployedTo + '\n', {
+    encoding: 'utf-8',
+    flag: 'a',
+  });
 
   return { success: true };
 }
